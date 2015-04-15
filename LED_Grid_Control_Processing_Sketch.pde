@@ -20,7 +20,6 @@ public int redSlider, greenSlider, blueSlider;
   int amp = 100;
   float freq = 0.08;
   float decay = 0.1;
-  int stroke = 10;
 
 void setup() {
 
@@ -102,7 +101,7 @@ void setup() {
 }
 
 void draw() {
-    background(0.0,0.0,0.0);
+    background( 0.0, 0.0, 0.0);
   int i = 0;
   for(LEDpoint LED : LEDArray) {
 

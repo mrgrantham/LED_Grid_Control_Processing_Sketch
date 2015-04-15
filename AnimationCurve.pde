@@ -26,6 +26,18 @@ class AnimationCurve {
       this.done = false;
     }
     
+     void resetTimer() {
+       t=0; 
+       done=false;
+       positive=true;
+      this.upperBound = amp/2;
+      this.lowerBound = -amp/2;
+    }
+    
+    boolean stopped() {
+       return done || t==0; 
+    }
+    
     boolean iterate() {
                         
             // increment time until animation has stopped

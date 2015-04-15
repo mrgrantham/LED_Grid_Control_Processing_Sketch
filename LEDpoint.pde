@@ -9,33 +9,16 @@ class LEDpoint {
   int originy = 0 ; // origin is upper left corner instead of center
   boolean selected = false;
   int radius;
-  Cursor aCursor;
+
+  AnimatedCircle animatedCircle;
   boolean mouseWasPressed=false;
   
   LEDpoint() {
-      r=0;
-      g=0;
-      b=0;
-      x=0;
-      y=0;
-      aCursor = new Cursor(amp, freq, decay, LEDradius+36, stroke);
-      aCursor.setXY(x,y);
-
+        this(0, 0, 0, 0, 0, LEDradius+36);
   }
   
     LEDpoint(int xpoint,int ypoint, int rad) {
-      r=50;
-      g=50;
-      b=50;
-      x=xpoint;
-      y=ypoint;
-      radius = rad;
-      // Set top left origin of shape
-      originx = x - rad;
-      originy = y - rad;
-      aCursor = new Cursor(amp, freq, decay, LEDradius+36, stroke);
-      aCursor.setXY(x,y);
-
+        this(xpoint, ypoint, 50, 50, 50, rad);
   }
   
     LEDpoint(int xpoint,int ypoint, int red, int gre, int blu, int rad) {
@@ -45,11 +28,13 @@ class LEDpoint {
       x=xpoint;
       y=ypoint;
       radius = rad;
+      
       // Set top left origin of shape
       originx = x - rad;
       originy = y - rad;
-      aCursor = new Cursor(amp, freq, decay, LEDradius+36, stroke);
-      aCursor.setXY(x,y);
+
+      animatedCircle = new AnimatedCircle(LEDradius+36, x, y, r, g, b);
+
 
   }
   
@@ -72,7 +57,7 @@ class LEDpoint {
          select();
           if (mousePressed) {
               if(!mouseWasPressed) {
-                aCursor.resetTimer();
+                animatedCircle.resetTimer();
                 mouseWasPressed=true;
               }
             
@@ -113,11 +98,10 @@ class LEDpoint {
           }
           mouseWasPressed=false;
           
-         println("slected!"); 
+         println("selected!"); 
 
        } else {
         this.deselect();
-         //println("deslected!"); 
        }
   }
   
@@ -130,20 +114,16 @@ class LEDpoint {
   
   void deselect() {
     this.selected = false;
-    aCursor.resetTimer();
+    animatedCircle.resetTimer();
   }
   
   void drawPoint() {
       if (selected) {
-          //stroke(255^this.r,255^this.g,255^this.b);
-          //aCursor.setColor(255^this.r,255^this.g,255^this.b);
-          aCursor.setColor(this.r,this.g,this.b);
-
-          aCursor.draw();
+          animatedCircle.setColor(this.r,this.g,this.b);
       } 
-      fill(this.r,this.g,this.b);
-      ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
       
+      animatedCircle.draw();
+
 
   }
   
